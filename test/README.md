@@ -1,47 +1,129 @@
-# Sample testbench for a Tiny Tapeout project
+# Firmware Signature Verification Accelerator
 
-This is a sample testbench for a Tiny Tapeout project. It uses [cocotb](https://docs.cocotb.org/en/stable/) to drive the DUT and check the outputs.
-See below to get started or for more information, check the [website](https://tinytapeout.com/hdl/testing/).
+This project implements a **Firmware Signature Verification Accelerator** for Tiny Tapeout.
 
-## Setting up
+The design verifies firmware authenticity using a simple hardware-based signature verification mechanism. It demonstrates how secure boot and firmware authentication concepts can be implemented in RTL hardware.
 
-1. Edit [Makefile](Makefile) and modify `PROJECT_SOURCES` to point to your Verilog files.
-2. Edit [tb.v](tb.v) and replace `tt_um_example` with your module name.
+---
 
-## How to run
+## Project Overview
 
-To run the RTL simulation:
+The accelerator performs:
+
+- Firmware data hashing
+- Signature comparison
+- Verification status generation
+- Secure authentication logic
+
+This project is inspired by automotive V2X security accelerator architectures and focuses on the **Firmware Signature Verification** block.
+
+---
+
+## Features
+
+- Hardware-based firmware verification
+- Clocked sequential logic
+- Reset support
+- Lightweight verification engine
+- Tiny Tapeout compatible
+- Synthesizable Verilog RTL
+
+---
+
+## Module Interface
+
+| Signal | Width | Direction | Description |
+|--------|--------|------------|-------------|
+| `ui_in` | 8-bit | Input | Firmware data input |
+| `uio_in` | 8-bit | Input | Signature data input |
+| `uo_out` | 8-bit | Output | Verification result and hash output |
+| `clk` | 1-bit | Input | System clock |
+| `rst_n` | 1-bit | Input | Active-low reset |
+| `ena` | 1-bit | Input | Enable signal |
+
+---
+
+## Verification Logic
+
+The design contains:
+
+1. Simple hash generation engine
+2. Signature calculation logic
+3. Hash-signature comparison unit
+4. Verification status output
+
+If the generated hash matches the signature pattern, verification output becomes HIGH.
+
+---
+
+## File Structure
+
+```text
+project/
+│
+├── src/
+│   └── tt_um_firmware_signature_verify.v
+│
+├── test/
+│   ├── tb.v
+│   └── test.py
+│
+├── info.yaml
+└── README.md
+```
+
+---
+
+## Running Simulation
+
+Run RTL simulation using:
 
 ```sh
 make -B
 ```
 
-To run gatelevel simulation, first harden your project and copy `../runs/wokwi/results/final/verilog/gl/{your_module_name}.v` to `gate_level_netlist.v`.
+Waveform file generated:
 
-Then run:
-
-```sh
-make -B GATES=yes
+```text
+tb.fst
 ```
 
-If you wish to save the waveform in VCD format instead of FST format, edit tb.v to use `$dumpfile("tb.vcd");` and then run:
+View waveform using GTKWave:
 
 ```sh
-make -B FST=
+gtkwave tb.fst
 ```
 
-This will generate `tb.vcd` instead of `tb.fst`.
+---
 
-## How to view the waveform file
+## Tiny Tapeout Compatibility
 
-Using GTKWave
+This project follows Tiny Tapeout wrapper requirements:
 
-```sh
-gtkwave tb.fst tb.gtkw
-```
+- 8 dedicated inputs
+- 8 dedicated outputs
+- 8 bidirectional IOs
+- Single clock input
+- Active-low reset
 
-Using Surfer
+---
 
-```sh
-surfer tb.fst
-```
+## Applications
+
+- Secure boot systems
+- Automotive V2X communication
+- Firmware authentication
+- Embedded system security
+- IoT device protection
+
+---
+
+## Author
+
+Your Name
+
+---
+
+## License
+
+This project is licensed under the Apache 2.0 License.
