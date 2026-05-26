@@ -1,8 +1,8 @@
 # Tiny Tapeout project information
 project:
   title: "Firmware Signature Verification Accelerator"
-  author: "Your Name"
-  discord: "your_discord_username"
+  author: "Santoshi"
+  discord: "Santoshi2006"
   description: "Hardware accelerator for firmware signature verification using simple hash and signature comparison logic."
   language: "Verilog"
   clock_hz: 10000000
